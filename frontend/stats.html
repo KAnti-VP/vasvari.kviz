@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kvíz Statisztikák – Vasvári</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container header-flex">
+            <h1>Vasvári Kvíz – Statisztikák</h1>
+            <nav>
+                <a href="index.html" class="nav-link">⬅ Vissza a kvízhez</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="card">
+            <h2>Eddigi eredmények megoszlása</h2>
+            <p>Az alábbi listában látható, hogy az anonim kitöltések alapján melyik karakter hányszor született meg eredményként.</p>
+            
+            <div id="stats-loading">Adatok betöltése...</div>
+            <div id="stats-error" class="error-msg hidden">Nem sikerült kapcsolódni a statisztikai szerverhez.</div>
+            
+            <div id="stats-container" class="stats-list">
+                <!-- Ide tölti be a JavaScript a statisztikákat -->
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // ÁLLÍTSD BE: A backend szerver címe (helyi fejlesztésnél localhost:3000)
+        // const API_URL = 'http://localhost:3000/api';
+        const API_URL = '/api';
+        document.addEventListener('DOMContentLoaded', async () => {
+            const loadingEl = document.getElementById('stats-loading');
+            const errorEl = document.getElementById('stats-error');
+            const containerEl = document.getElementById('stats-container');
+
+            try {
+                const response = await fetch(`${API_URL}/statistics`);
+                if (!response.ok) throw new Error('Szerver hiba');
+                
+                const data = await response.json();
+                loadingEl.classList.add('hidden');
+
+                // Összes darabszám kiszámítása a százalékos csíkokhoz
+                const total = data.reduce((sum, item) => sum + item.count, 0);
+
+                data.forEach(item => {
+                    const percentage = total > 0 ? Math.round((item.count / total) * 100) : 0;
+                    
+                    const row = document.createElement('div');
+                    row.className = 'stat-item';
+                    row.innerHTML = `
+                        <div class="stat-info">
+                            <strong>${item.name} (${item.code})</strong>
+                            <span>${item.count} fő (${percentage}%)</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${percentage}%"></div>
+                        </div>
+                    `;
+                    containerEl.appendChild(row);
+                });
+            } catch (err) {
+                loadingEl.classList.add('hidden');
+                errorEl.classList.remove('hidden');
+                console.error(err);
+            }
+        });
+    </script>
+</body>
+</html>

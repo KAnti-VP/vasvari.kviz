@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Melyik Vasváris karakter vagy? – Kvíz</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container header-flex">
+            <h1>Vasvári Pályaorientációs Kvíz</h1>
+            <nav>
+                <a href="stats.html" class="nav-link">📊 Statisztikák megtekintése</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- 1. KEZDŐKÉPERNYŐ -->
+        <section id="start-screen" class="card active">
+            <h2>Melyik karakter illik hozzád leginkább?</h2>
+            <p>Válaszolj 5 gyors kérdésre, és tudd meg, milyen erősségeid vannak, és melyik képzési irány áll hozzád a legközelebb a Vasváriban!</p>
+            <button id="start-btn" class="btn primary-btn">Kvíz indítása</button>
+        </section>
+
+        <!-- 2. KVÍZ KÉPERNYŐ -->
+        <section id="quiz-screen" class="card hidden">
+            <div class="progress-container">
+                <span id="question-counter">1 / 5. kérdés</span>
+                <div class="progress-bar">
+                    <div id="progress-fill" class="progress-fill"></div>
+                </div>
+            </div>
+
+            <h2 id="question-text">Kérdés szövege...</h2>
+            <div id="answers-container" class="answers-grid">
+                <!-- A válaszgombokat a JavaScript tölti be ide -->
+            </div>
+        </section>
+
+        <!-- 3. EREDMÉNY KÉPERNYŐ -->
+        <section id="result-screen" class="hidden">
+            <div id="result-header" class="card result-banner">
+                <!-- Ide kerül a főcím (pl. A TE EREDMÉNYED vagy KETTŐS KARAKTER) -->
+            </div>
+
+            <!-- Ide generálja a JS a nyertes karakter(ek) kártyáit -->
+            <div id="characters-output"></div>
+
+            <!-- KÖZÖS FIX ELEM 1: Nyílt napok és bemutatóórák (Placeholder) -->
+            <div class="card info-box">
+                <h3>📅 Nyílt napok és bemutatóórák</h3>
+                <p><strong>[HELYŐRZŐ SZÖVEG - Később átírható]</strong></p>
+                <p>Gyere el személyesen iskolánkba, nézz be az órákra, és beszélgess a diákjainkkal! Következő időpontok: 2026. november 20. és december 4. 9:00 órától.</p>
+                <p>További részletek és regisztráció: <a href="#" target="_blank">www.vasvari.hu/nyiltnap (helyőrző link)</a></p>
+            </div>
+
+            <!-- KÖZÖS FIX ELEM 2: Ismerd meg a Vasvárit! záróelem (Placeholder) -->
+            <div class="card closing-box">
+                <h3>🏫 Ismerd meg a Vasvárit!</h3>
+                <p><strong>[HELYŐRZŐ SZÖVEG - Később átírható]</strong></p>
+                <p>A Vasváriban modern környezetben, gyakorlatorientált képzésekkel és támogató közösséggel várunk. Legyen szó informatikáról, gazdálkodásról vagy kereskedelemről, nálunk megtalálod a jövőd alapjait!</p>
+            </div>
+
+            <div class="center-actions">
+                <button id="restart-btn" class="btn secondary-btn">Kvíz újrakezdése</button>
+                <a href="stats.html" class="btn primary-btn">Összesített statisztikák</a>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
